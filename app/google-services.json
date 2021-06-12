@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "197189558613",
+    "project_id": "androidnotificationfirecloud",
+    "storage_bucket": "androidnotificationfirecloud.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197189558613:android:980eb634b5ca1f2d588fdc",
+        "android_client_info": {
+          "package_name": "com.example.androidnotificationfirebasecloudmessing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197189558613-mbk90ool92s42jei69nkbs4h9ct8vipo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxkUL8h0ppvIO0W9kleTrDHGVa4sSkDFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197189558613-mbk90ool92s42jei69nkbs4h9ct8vipo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
