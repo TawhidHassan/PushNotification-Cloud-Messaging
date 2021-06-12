@@ -11,19 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androidnotificationfirebasecloudmessing.R;
-import com.example.androidnotificationfirebasecloudmessing.adapter.TopicAdapter;
-import com.example.androidnotificationfirebasecloudmessing.model.Topic;
+import com.example.androidnotificationfirebasecloudmessing.adapter.NotificationAdapter;
+import com.example.androidnotificationfirebasecloudmessing.model.Notification;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class TopicFragment extends Fragment {
+
+public class CloudFunctionFragment extends Fragment {
 
     private View view;
     private RecyclerView recyclerView;
-    private TopicAdapter adapter;
-
-
-    public TopicFragment() {
+    private NotificationAdapter adapter;
+    public CloudFunctionFragment() {
         // Required empty public constructor
     }
 
@@ -31,21 +31,21 @@ public class TopicFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_topic, container, false);
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_cloud_function, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerViewTpoic);
+        recyclerView = view.findViewById(R.id.recyclerViewcClopud);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirebaseRecyclerOptions<Topic> options =
-                new FirebaseRecyclerOptions.Builder<Topic>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Topic"), Topic.class)
+        FirebaseRecyclerOptions<Notification> options =
+                new FirebaseRecyclerOptions.Builder<Notification>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Notification")
+                                .child(FirebaseAuth.getInstance().getUid()).child("CloudFuncation"), Notification.class)
                         .build();
 
-
-        adapter = new TopicAdapter(options);
+        adapter = new NotificationAdapter(options);
         recyclerView.setAdapter(adapter);
-
-
+        // Inflate the layout for this fragment
         return view;
     }
 
@@ -60,6 +60,4 @@ public class TopicFragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
-
-
 }

@@ -11,43 +11,46 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androidnotificationfirebasecloudmessing.R;
-import com.example.androidnotificationfirebasecloudmessing.adapter.TopicAdapter;
-import com.example.androidnotificationfirebasecloudmessing.model.Topic;
+import com.example.androidnotificationfirebasecloudmessing.adapter.NotificationAdapter;
+import com.example.androidnotificationfirebasecloudmessing.model.Notification;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class TopicFragment extends Fragment {
+public class RestApiFragment extends Fragment {
 
     private View view;
     private RecyclerView recyclerView;
-    private TopicAdapter adapter;
-
-
-    public TopicFragment() {
+    private NotificationAdapter adapter;
+    public RestApiFragment() {
         // Required empty public constructor
     }
+
+
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_topic, container, false);
+        view = inflater.inflate(R.layout.fragment_rest_api, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerViewTpoic);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirebaseRecyclerOptions<Topic> options =
-                new FirebaseRecyclerOptions.Builder<Topic>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Topic"), Topic.class)
+        FirebaseRecyclerOptions<Notification> options =
+                new FirebaseRecyclerOptions.Builder<Notification>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Notification")
+                                .child(FirebaseAuth.getInstance().getUid()).child("RestApi"), Notification.class)
                         .build();
 
-
-        adapter = new TopicAdapter(options);
+        adapter = new NotificationAdapter(options);
         recyclerView.setAdapter(adapter);
 
-
+        // Inflate the layout for this fragment
         return view;
     }
+
 
     @Override
     public void onStart() {
@@ -60,6 +63,4 @@ public class TopicFragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
-
-
 }
