@@ -5,7 +5,9 @@
 # Rest api link
 #------------------------------------------------------------------
 #specific device or user
+
 https://fcm.googleapis.com/fcm/send
+
 #Body
 
 {
@@ -20,6 +22,7 @@ https://fcm.googleapis.com/fcm/send
 }
 
 #Header part
+
 Authorization key=AAAA4rqDFYA:APA91bFfd7shMMKXjA53EilVASvMJYq7Gm93UX_wrQJYJ37F-gUL-utP9L0rlkRd4OmlpVnjUZCYGiBQ8n9sfzmpXvut61Zq0mCaKcoGptsrZ8BVfcZoXdRaRhh2cqqFjfuA_RZ_iBQg
 
 #------------------------------------------------------------------
