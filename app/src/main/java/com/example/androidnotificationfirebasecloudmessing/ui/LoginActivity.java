@@ -15,10 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidnotificationfirebasecloudmessing.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -74,21 +82,51 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
         progressBar.setVisibility(View.VISIBLE);
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
-                    public void onSuccess(AuthResult authResult) {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(LoginActivity.this, "Login Successfull.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this,DashboaredActivity.class));
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(LoginActivity.this, ""+e.toString(), Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        final String token = task.getResult().getToken();
+
+
+                        FirebaseAuth.getInstance().signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
+                                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                    @Override
+                                    public void onSuccess(AuthResult authResult) {
+
+                                        Map<String,Object> map = new HashMap<>();
+                                        map.put("token",token);
+
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("User")
+                                                .child(FirebaseAuth.getInstance().getUid())
+                                                .updateChildren(map)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        progressBar.setVisibility(View.GONE);
+                                                        Toast.makeText(LoginActivity.this, "Login Successfull.", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                                        finish();
+                                                    }
+                                                });
+
+
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(LoginActivity.this, ""+e.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                     }
                 });
     }
