@@ -15,11 +15,15 @@ import android.widget.TextView;
 
 import com.example.androidnotificationfirebasecloudmessing.R;
 import com.example.androidnotificationfirebasecloudmessing.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -76,12 +80,25 @@ public class ProfileFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getContext(),LoginActivity.class));
-                getActivity().finish();
+                loader.setVisibility(View.VISIBLE);
+                HashMap<String,Object> map = new HashMap<>();
+                map.put("token","");
+
+                FirebaseDatabase.getInstance().getReference()
+                        .child("User")
+                        .child(FirebaseAuth.getInstance().getUid())
+                        .updateChildren(map)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                loader.setVisibility(View.GONE);
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(getContext(), LoginActivity.class));
+                                getActivity().finish();
+                            }
+                        });
             }
         });
-
 
         return view;
     }
