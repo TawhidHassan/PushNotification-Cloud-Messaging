@@ -153,7 +153,7 @@ public class SendNotificationActivity extends AppCompatActivity {
                         NotificationReq req = new NotificationReq(
                                 dataSnapshot.child("token").getValue().toString(),
                                 new NotificationReq.Notification(title.getText().toString(), description.getText().toString(), "https://embedsocial.com/wp-content/uploads/2020/02/latest-instagram-api-changes.jpg", "my_click"),
-                                new NotificationReq.Data_("sifat", "hassan","notification sifat")
+                                new NotificationReq.Data_("sifat", "hassan","notification sifat") //for background, ---for forground
                         );
 
 
