@@ -14,7 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidNotificationFirebAseCloudMessing">
-        <activity android:name=".ui.SendNotificationActivity"></activity>
+        <activity android:name=".ui.SendNotificationActivity">
+            <intent-filter>
+                <action android:name="my_click"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

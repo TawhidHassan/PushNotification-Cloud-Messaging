@@ -52,6 +52,12 @@ public class SendNotificationActivity extends AppCompatActivity {
 
         id = getIntent().getStringExtra("id");
 
+        String key1 =getIntent().getStringExtra("key1");
+        String key2= getIntent().getStringExtra("key2");
+
+        Toast.makeText(this, "key1"+key1+" "+"key2:"+key2, Toast.LENGTH_SHORT).show();
+
+
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
         send = findViewById(R.id.send);
@@ -146,7 +152,8 @@ public class SendNotificationActivity extends AppCompatActivity {
                         //data
                         NotificationReq req = new NotificationReq(
                                 dataSnapshot.child("token").getValue().toString(),
-                                new NotificationReq.Notification(title.getText().toString(), description.getText().toString())
+                                new NotificationReq.Notification(title.getText().toString(), description.getText().toString(), "https://embedsocial.com/wp-content/uploads/2020/02/latest-instagram-api-changes.jpg", "my_click"),
+                                new NotificationReq.Data_("sifat", "hassan","notification sifat")
                         );
 
 
