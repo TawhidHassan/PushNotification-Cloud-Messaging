@@ -31,15 +31,19 @@ Authorization key=AAAA4rqDFYA:APA91bFfd7shMMKXjA53EilVASvMJYq7Gm93UX_wrQJYJ37F-g
 body
 
 {
-    "to":"d3ULlmpKRLOI0l-7z_PEXO:APA91bHzk3gh1G-z-PcXqmjBIgZ7WYXokC7eYtu9OyPQZxiAbuhcu4DmbILan5WXfO0KCmQGuao_ly8bRkxe5tP6Jh49Yaw3Hvy6bI9ZHf4Jqzm2HooiiemxGWvlUojQZGEmzkMnLFHf",
-    "notification":{
-        "title":"chjeck notification",
-        "body":"checked apis notification",
-        "image":"link",
-        "click_action":"my_click"
-    },
-    "data":{
-        "title":"forground check this mobile (titile)",
-        "body":"forground notification testing (body)"
-    }
+   "to":"d3ULlmpKRLOI0l-7z_PEXO:APA91bHzk3gh1G-z-PcXqmjBIgZ7WYXokC7eYtu9OyPQZxiAbuhcu4DmbILan5WXfO0KCmQGuao_ly8bRkxe5tP6Jh49Yaw3Hvy6bI9ZHf4Jqzm2HooiiemxGWvlUojQZGEmzkMnLFHf",
+   "notification":{
+       "title":"chjeck notification",
+       "body":"checked apis notification",
+       "image":"link",
+       "click_action":"my_click"
+   },
+
+   "data":{
+       "title":"forground check this mobile (titile)",
+       "body":"forground notification testing (body)"
+   }
 }
+
+
+#------------------------------------------------------------------
