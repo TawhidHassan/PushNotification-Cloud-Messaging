@@ -1,9 +1,11 @@
 package com.example.androidnotificationfirebasecloudmessing.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidnotificationfirebasecloudmessing.R;
 import com.example.androidnotificationfirebasecloudmessing.model.Topic;
+import com.example.androidnotificationfirebasecloudmessing.ui.SendNotificationActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +38,17 @@ public class TopicAdapter extends FirebaseRecyclerAdapter<Topic, TopicAdapter.To
 
     @Override
     protected void onBindViewHolder(@NonNull TopicViewHolder holder, int position, @NonNull Topic model) {
+
+        holder.main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.main.getContext(), SendNotificationActivity.class);
+                intent.putExtra("id",model.getTitle());
+                intent.putExtra("type","topic");
+                holder.main.getContext().startActivity(intent);
+            }
+        });
+
         holder.topic.setText(model.getTitle());
         holder.subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +100,13 @@ public class TopicAdapter extends FirebaseRecyclerAdapter<Topic, TopicAdapter.To
 
         TextView topic;
         ImageView subscribe;
-
+        LinearLayout main;
         public TopicViewHolder(@NonNull View itemView) {
             super(itemView);
 
             subscribe = itemView.findViewById(R.id.subscribe);
             topic = itemView.findViewById(R.id.topic);
+            main = itemView.findViewById(R.id.main);
         }
     }
 

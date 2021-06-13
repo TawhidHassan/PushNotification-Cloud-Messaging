@@ -43,7 +43,8 @@ public class SendNotificationActivity extends AppCompatActivity {
     private Button send;
     private DialogPlus dialogPlus;
     private DatabaseReference reference;
-    private String id;
+
+    private String id,type;
     private ProgressBar progress_bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class SendNotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_send_notification);
 
         id = getIntent().getStringExtra("id");
+        type = getIntent().getStringExtra("type");
 
         String key1 =getIntent().getStringExtra("key1");
         String key2= getIntent().getStringExtra("key2");
@@ -98,6 +100,10 @@ public class SendNotificationActivity extends AppCompatActivity {
                 map.put("title",title.getText().toString());
                 map.put("description",description.getText().toString());
                 map.put("id",id);
+                if(type.equals("topic"))
+                    map.put("topic",id);
+                else
+                    map.put("id",id);
 
                 reference.child(FirebaseAuth.getInstance().getUid())
                         .child("RestApi")
@@ -146,12 +152,12 @@ public class SendNotificationActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                        String to = type.equals("topic")?"/topics/"+id : dataSnapshot.child("token").getValue().toString();
                         //to
                         //Notification
                         //data
                         NotificationReq req = new NotificationReq(
-                                dataSnapshot.child("token").getValue().toString(),
+                                to,
                                 new NotificationReq.Notification(title.getText().toString(), description.getText().toString(), "https://embedsocial.com/wp-content/uploads/2020/02/latest-instagram-api-changes.jpg", "my_click"),
                                 new NotificationReq.Data_("sifat", "hassan","notification sifat") //for background, ---for forground
                         );
