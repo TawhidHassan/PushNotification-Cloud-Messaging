@@ -137,6 +137,10 @@ public class SendNotificationActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+
+//                                if you want to send notification by cloudMessaging then see this video
+//                                https://youtu.be/MLy5T9Nb5Kk
+
                                 progress_bar.setVisibility(View.GONE);
                             }
                         });
